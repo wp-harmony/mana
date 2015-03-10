@@ -1,12 +1,40 @@
 <?php
 /**
- * Charms - PHP Helper Functions
+ * Runes Functions
  * 
- * @package  Charms
- * @author   Simon Holloway <holloway.sy@gmail.com>
- * @author   Lots of functions stolen from Laravel's Illuminate\Support
- * @license  http://opensource.org/licenses/MIT MIT
+ * @package    Harmony
+ * @subpackage Runes
+ * @author     Simon Holloway <holloway.sy@gmail.com>
+ * @author     Lots of functions stolen from Laravel's Illuminate\Support
+ * @license    http://opensource.org/licenses/MIT MIT
  */
+
+/**
+ * Registery container accessor.
+ * Call without parameters to return the registery.
+ * Call with 1 parameter to get an item from the registery.
+ * Call with 2 parameters to set an item to the registery.
+ *
+ * @return array
+ */
+function registery()
+{
+	$registery = Harmony\Runes\Registery::get_instance();
+	
+	$args = func_get_args();
+
+	switch (count($args)) {
+		case 0:
+			return $registery;
+		case 1:
+			return $registery->get($args[0]);
+		case 2:
+			return $registery->set($args[0], $args[1]);
+		default:
+			return $registery;
+	}
+
+}
 
 /**
  * Flatten a multi-dimensional associative array with dots.

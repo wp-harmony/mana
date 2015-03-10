@@ -1,4 +1,13 @@
 <?php
+/**
+ * Runes Map Class
+ * 
+ * @package    Harmony
+ * @subpackage Runes
+ * @author     Simon Holloway <holloway.sy@gmail.com>
+ * @license    http://opensource.org/licenses/MIT MIT
+ */
+
 namespace Harmony\Runes;
 
 use ArrayAccess;

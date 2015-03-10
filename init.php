@@ -1,32 +1,27 @@
 <?php
 /**
- * Runes - Utility Libary
- *
+ * Runes - Utility Library
+ * 
  * Part of the Harmony Group
  * 
- * Plugin Name: Harmony - Runes
+ * Plugin Name: Harmony Runes
  * 
- * @package Divinity
+ * @package    Harmony
  * @subpackage Runes
- * @author  Simon Holloway <holloway.sy@gmail.com>
- * @license http://opensource.org/licenses/MIT MIT
- * @version 2.0.0
+ * @author     Simon Holloway <holloway.sy@gmail.com>
+ * @license    http://opensource.org/licenses/MIT MIT
+ * @version    2.0.0
  */
 
-if ( ! defined('RUNES_AUTOLOADED') ) {
-	require('autoloader.php');
-}
-
-require('functions.php');
+$onReady = require('autoloader.php');
 
 /**
- * 
+ * Initialize Runes
  * 
  * @return void
  */
-function runes_init()
+$onReady(function ()
 {
+	define('RUNES_LOADED', true);
 	do_action('runes_loaded');
-}
-
-runes_init();
+});
