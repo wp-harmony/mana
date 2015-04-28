@@ -1,14 +1,14 @@
 <?php
 /**
- * Runes Map Class
+ * Mana Map Class
  * 
  * @package    Harmony
- * @subpackage Runes
+ * @subpackage Mana
  * @author     Simon Holloway <holloway.sy@gmail.com>
  * @license    http://opensource.org/licenses/MIT MIT
  */
 
-namespace Harmony\Runes;
+namespace Harmony\Mana;
 
 use ArrayAccess;
 use IteratorAggregate; 

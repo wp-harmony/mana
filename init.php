@@ -1,27 +1,52 @@
 <?php
 /**
- * Runes - Utility Library
+ * Mana - Foundation and Utilities
  * 
  * Part of the Harmony Group
  * 
- * Plugin Name: Harmony Runes
+ * Plugin Name: Harmony Mana
  * 
  * @package    Harmony
- * @subpackage Runes
+ * @subpackage Mana
  * @author     Simon Holloway <holloway.sy@gmail.com>
  * @license    http://opensource.org/licenses/MIT MIT
  * @version    2.0.0
  */
 
-$onReady = require('autoloader.php');
 
-/**
- * Initialize Runes
- * 
- * @return void
- */
-$onReady(function ()
+
+function load_harmony()
 {
-	define('RUNES_LOADED', true);
-	do_action('runes_loaded');
-});
+	$container = register_harmony_autoloader();
+
+	do_action('harmony_register', $container);
+	do_action('harmony_boot', $container);
+	do_action('harmony_loaded', $container);
+
+	return $container;
+}
+
+add_action('plugins_loaded', 'load_harmony');
+
+function register_harmony_autoloader()
+{
+	$autoloader = require('src/Autoloader.php');
+
+	$autoloader['Harmony\Mana'] = __DIR__ . '/src';
+	$container = Harmony\Mana\Container;
+	$container['Harmony\Mana\Autoloader'] = $autoloader;
+	$container->alias('autoloader', 'Harmony\Mana\Autoloader');
+	$container->factory('test', function() {
+		$z = new Y(new X);
+		$z->setSomething(new W);
+		return $z;
+	});
+
+	$container->singleton('test', function() {
+		$z = new Y(new X);
+		$z->setSomething(new W);
+		return $z;
+	});
+
+	return $container;
+}

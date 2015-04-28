@@ -1,18 +1,14 @@
 <?php
 /**
- * Runes Registery Class
+ * Mana Registery Class
  * 
  * @package    Harmony
- * @subpackage Runes
+ * @subpackage Mana
  * @author     Simon Holloway <holloway.sy@gmail.com>
  * @license    http://opensource.org/licenses/MIT MIT
  */
 
-namespace Harmony\Runes;
-
-use ArrayAccess;
-use IteratorAggregate; 
-use ArrayIterator;
+namespace Harmony\Mana;
 
 /**
  * Class Registery
