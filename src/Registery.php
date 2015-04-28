@@ -59,4 +59,39 @@ class Registery extends Map
 	{
 		self::$instance = new self;	
 	}
+
+	/**
+	 * Call a method stored in the registery using the first param
+	 * to locate the callable and the second param will be passed 
+	 * into the callable as args.
+	 * 
+	 * @param string $key
+	 * @param array $args
+	 * @return mixed
+	 */
+	public static function call($key, $args = array())
+	{
+		if ($this->data[$key] && is_callable($this->data[$key])) {
+			return call_user_func_array($this->data[$key], $args);
+		}
+	}
+	
+	
+	/**
+	 * Call a method stored in the registery using the first param
+	 * to locate the callable, and the rest of the params will be 
+	 * passed into the callable as args.
+	 * 
+	 * @param string $key
+	 * @return mixed
+	 */
+	public static function callWith($key)
+	{
+		$args = func_get_args();
+		array_shift($args);
+		
+		if ($this->data[$key] && is_callable($this->data[$key])) {
+			return call_user_func_array($this->data[$key], $args);
+		}
+	}
 }

@@ -161,56 +161,6 @@ function array_dot_forget(&$array, $key)
 }
 
 /**
- * Check if passed key is the key of the first item in the array
- * 
- * @param  array			$array
- * @param  string|integer   $key
- * @return boolean
- */
-function array_is_first(&$array, $key)
-{
-	reset($array);
-	return $key === key($array);
-}
-
-/**
- * Check if passed key is the key of the last item in the array
- * 
- * @param  array			$array
- * @param  string|integer   $key
- * @return boolean
- */
-function array_is_last(&$array, $key)
-{
-	end($array);
-	return $key === key($array);
-}
-
-/**
- * Get the first key in the array
- * 
- * @param  array			$array
- * @return boolean
- */
-function array_get_first(&$array)
-{
-	reset($array);
-	return key($array);
-}
-
-/**
- * Get the last key in the array
- * 
- * @param  array			$array
- * @return boolean
- */
-function array_get_last(&$array)
-{
-	end($array);
-	return key($array);
-}
-
-/**
  * Split a string by multiple delimiters
  * 
  * @param  array			$delimiters
@@ -415,6 +365,20 @@ function alphanumeric($string, $strip_spaces = false)
 function prettify($string)
 {
 	return ucfirst(str_replace(array('_', '-'), ' ', $string));
+}
+
+
+/**
+ * Dump the passed variables.
+ *
+ * @param  dynamic  mixed
+ * @return void
+ */
+function d()
+{
+	foreach (func_get_args() as $var) {
+		var_dump($var);
+	}
 }
 
 /**
