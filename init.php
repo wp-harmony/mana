@@ -13,11 +13,11 @@
  * @version    2.0.0
  */
 
+use Harmony\Mana\Container;
 
-
-function load_harmony()
+function harmony_load()
 {
-	$container = register_harmony_autoloader();
+	$container = harmony_init();
 
 	do_action('harmony_register', $container);
 	do_action('harmony_boot', $container);
@@ -26,27 +26,16 @@ function load_harmony()
 	return $container;
 }
 
-add_action('plugins_loaded', 'load_harmony');
+add_action('plugins_loaded', 'harmony_load');
 
-function register_harmony_autoloader()
+function harmony_init()
 {
 	$autoloader = require('src/Autoloader.php');
-
 	$autoloader['Harmony\Mana'] = __DIR__ . '/src';
-	$container = Harmony\Mana\Container;
+
+	$container = new Container;
 	$container['Harmony\Mana\Autoloader'] = $autoloader;
 	$container->alias('autoloader', 'Harmony\Mana\Autoloader');
-	$container->factory('test', function() {
-		$z = new Y(new X);
-		$z->setSomething(new W);
-		return $z;
-	});
-
-	$container->singleton('test', function() {
-		$z = new Y(new X);
-		$z->setSomething(new W);
-		return $z;
-	});
 
 	return $container;
 }

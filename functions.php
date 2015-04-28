@@ -10,28 +10,28 @@
  */
 
 /**
- * Registery container accessor.
+ * Application container accessor.
  * Call without parameters to return the registery.
  * Call with 1 parameter to get an item from the registery.
  * Call with 2 parameters to set an item to the registery.
  *
  * @return array
  */
-function registery()
+function app()
 {
-	$registery = Harmony\Runes\Registery::get_instance();
+	$container = Harmony\Runes\Container::get_instance();
 	
 	$args = func_get_args();
 
 	switch (count($args)) {
 		case 0:
-			return $registery;
+			return $container;
 		case 1:
-			return $registery->get($args[0]);
+			return $container->get($args[0]);
 		case 2:
-			return $registery->set($args[0], $args[1]);
+			return $container->set($args[0], $args[1]);
 		default:
-			return $registery;
+			return $container;
 	}
 
 }
