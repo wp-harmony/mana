@@ -22,6 +22,13 @@ namespace Harmony\Mana;
 class Container extends Map 
 {
 	/**
+	 * Alias map for item in the container
+	 * 
+	 * @var array
+	 */
+	private $aliases = array();
+
+	/**
 	 * The currently used container instance
 	 * 
 	 * @var Container
@@ -61,6 +68,23 @@ class Container extends Map
 	}
 
 	/**
+	 * Get data
+	 *
+	 * @param string  $index   (optional) get data from key provided else return all data 
+	 * @param mixed   $default (optional) returns when index not found 
+	 * @param boolean $strict  (optional) passing false will fail if the value is empty 
+	 * @return mixed
+	 */
+	public function get($index = null, $default = null, $strict = true)
+	{
+		if (isset($this->aliases[$index])) {
+			$index = $this->aliases[$index];
+		}
+
+		return parent::get($index, $default, $strict);	
+	}
+
+	/**
 	 * Call a method stored in the container using the first param
 	 * to locate the callable and the second param will be passed 
 	 * into the callable as args.
@@ -69,7 +93,7 @@ class Container extends Map
 	 * @param array $args
 	 * @return mixed
 	 */
-	public static function call($key, $args = array())
+	public function call($key, $args = array())
 	{
 		if ($this->data[$key] && is_callable($this->data[$key])) {
 			return call_user_func_array($this->data[$key], $args);
@@ -85,7 +109,7 @@ class Container extends Map
 	 * @param string $key
 	 * @return mixed
 	 */
-	public static function call_with($key)
+	public function call_with($key)
 	{
 		$args = func_get_args();
 		array_shift($args);
@@ -96,13 +120,15 @@ class Container extends Map
 	}
 
 	/**
-	 *
+	 * Define an alias for an item, when the alias is called, the concrete is
+	 * returned.
 	 * 
-	 * @param string $key
+	 * @param string $alias
+	 * @param string $concrete
 	 * @return mixed
 	 */
-	public static function alias($key)
+	public function alias($alias, $concrete)
 	{
-		
+		$this->aliases[$alias] = $concrete;
 	}
 }

@@ -14,6 +14,7 @@
  */
 
 use Harmony\Mana\Container;
+use Harmony\Mana\Autoloader;
 
 function harmony_load()
 {
@@ -26,13 +27,17 @@ function harmony_load()
 	return $container;
 }
 
-add_action('plugins_loaded', 'harmony_load');
+add_action('wp_loaded', 'harmony_load');
 
 function harmony_init()
 {
-	$autoloader = require('src/Autoloader.php');
-	$autoloader['Harmony\Mana'] = __DIR__ . '/src';
+	require('src/Autoloader.php');
+	require('functions.php');
 
+	$autoloader = new Autoloader;
+	$autoloader->register();
+	$autoloader['Harmony\Mana'] = __DIR__ . '/src';
+	
 	$container = new Container;
 	$container['Harmony\Mana\Autoloader'] = $autoloader;
 	$container->alias('autoloader', 'Harmony\Mana\Autoloader');
