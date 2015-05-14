@@ -38,7 +38,7 @@ function harmony_init()
 	$autoloader->register();
 	$autoloader['Harmony\Mana'] = __DIR__ . '/src';
 	
-	$container = new Container;
+	$container = Container::get_instance();
 	$container['Harmony\Mana\Autoloader'] = $autoloader;
 	$container->alias('autoloader', 'Harmony\Mana\Autoloader');
 

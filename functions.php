@@ -19,7 +19,7 @@
  */
 function app()
 {
-	$container = Harmony\Runes\Container::get_instance();
+	$container = Harmony\Mana\Container::get_instance();
 	
 	$args = func_get_args();
 
