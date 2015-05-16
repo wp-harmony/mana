@@ -73,7 +73,7 @@ class Autoloader implements ArrayAccess
 	 */
 	public function register()
 	{
-		spl_autoload_register(array($this, 'loadClass'));
+		spl_autoload_register(array($this, 'load_class'));
 	}
 
 	/**
@@ -87,7 +87,7 @@ class Autoloader implements ArrayAccess
 	 * than last.
 	 * @return void
 	 */
-	public function addNamespace($prefix, $base_dir, $prepend = false)
+	public function add_namespace($prefix, $base_dir, $prepend = false)
 	{
 		// normalize namespace prefix
 		$prefix = trim($prefix, '\\') . '\\';
@@ -115,7 +115,7 @@ class Autoloader implements ArrayAccess
 	 * @return mixed The mapped file name on success, or boolean false on
 	 * failure.
 	 */
-	public function loadClass($class)
+	public function load_class($class)
 	{
 		// the current namespace prefix
 		$prefix = $class;
@@ -131,7 +131,7 @@ class Autoloader implements ArrayAccess
 			$relative_class = substr($class, $pos + 1);
 
 			// try to load a mapped file for the prefix and relative class
-			$mapped_file = $this->loadMappedFile($prefix, $relative_class);
+			$mapped_file = $this->load_mapped_file($prefix, $relative_class);
 			if ($mapped_file) {
 				return $mapped_file;
 			}
@@ -153,7 +153,7 @@ class Autoloader implements ArrayAccess
 	 * @return mixed Boolean false if no mapped file can be loaded, or the
 	 * name of the mapped file that was loaded.
 	 */
-	protected function loadMappedFile($prefix, $relative_class)
+	protected function load_mapped_file($prefix, $relative_class)
 	{
 		// are there any base directories for this namespace prefix?
 		if (isset($this->prefixes[$prefix]) === false) {
@@ -171,7 +171,7 @@ class Autoloader implements ArrayAccess
 				  . '.php';
 
 			// if the mapped file exists, require it
-			if ($this->requireFile($file)) {
+			if ($this->require_file($file)) {
 				// yes, we're done
 				return $file;
 			}
@@ -187,7 +187,7 @@ class Autoloader implements ArrayAccess
 	 * @param string $file The file to require.
 	 * @return bool True if the file exists, false if not.
 	 */
-	protected function requireFile($file)
+	protected function require_file($file)
 	{
 		if (file_exists($file)) {
 			require $file;
@@ -205,7 +205,7 @@ class Autoloader implements ArrayAccess
 	 */
 	public function offsetSet($index, $value)
 	{
-		$this->addNamespace($index, $value);
+		$this->add_namespace($index, $value);
 	
 		return true;
 	}
