@@ -1,4 +1,4 @@
-# Runes Utilities
+# Mana Framework Core and Utilities
 
 Summary
 

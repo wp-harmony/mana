@@ -205,6 +205,26 @@ class Map implements ArrayAccess, IteratorAggregate
 	}
 
 	/**
+	 * Get the data in an array but only for the keys provided
+	 *
+	 * @return array
+	 */
+	public function only($keys)
+	{
+		return array_intersect_key($this->data, array_flip($keys));
+	}
+
+	/**
+	 * Get the data in an array for all but the keys provided
+	 *
+	 * @return array
+	 */
+	public function except($keys)
+	{
+		return array_diff_key($this->data, array_flip($keys));
+	}
+
+	/**
 	 * Set data
 	 * 
 	 * @param string $index key to save data to
